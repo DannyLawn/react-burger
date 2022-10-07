@@ -1,0 +1,42 @@
+.burgerIngredients {
+  box-sizing: border-box;
+  max-height: 756px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #131316;
+    height: 664px;
+    border-radius: 0px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 492px;
+    border-radius: 0px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8585AD;
+  }
+
+  &::-webkit-scrollbar-track-piece:end {
+    background: #2F2F37;
+    margin-bottom: 30px;
+  }
+
+  &::-webkit-scrollbar-track-piece:start {
+    background: #2F2F37;
+    margin-top: 42px;
+  }
+
+  .ingredientsSet {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+    margin-right: 6px;
+  }
+}
