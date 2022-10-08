@@ -1,12 +1,18 @@
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   max-width: 1920px;
   width: 100%;
-  padding: 16px 320px;
+  padding: 16px;
   background-color: #1c1c21;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 1310px;
+    margin: 0 auto;
+  }
 
   &__nav {
     list-style: none;

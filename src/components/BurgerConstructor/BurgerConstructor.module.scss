@@ -6,6 +6,12 @@
   gap: 16px;
   list-style: none;
 
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
