@@ -40,7 +40,7 @@ const BurgerConstructor = (props) => {
         </ul>
         <div className="ml-8">
           <ConstructorElement
-            type="top"
+            type="bottom"
             isLocked={true}
             text="Краторная булка N-200i (низ)"
             price={200}
