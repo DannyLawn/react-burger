@@ -88,7 +88,7 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
         </Tab>
       </div>
       <div className={styles.burgerIngredients}>
-        <h2 className="text text_type_main-medium mt-10 mb-6" ref={bunRef}>Булки</h2>
+        <h2 className="text text_type_main-medium pt-10 mb-6" ref={bunRef}>Булки</h2>
         <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`}>
           {
             ingredients?.map((ingredient) =>
@@ -103,7 +103,7 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
             )
           }
         </ul>
-        <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauceRef}>Соусы</h2>
+        <h2 className="text text_type_main-medium pt-10 mb-6" ref={sauceRef}>Соусы</h2>
         <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`}>
           {
             ingredients?.map((ingredient) =>
@@ -118,7 +118,7 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
             )
           }
         </ul>
-        <h2 className="text text_type_main-medium mt-10 mb-6" ref={mainRef}>Начинки</h2>
+        <h2 className="text text_type_main-medium pt-10 mb-6" ref={mainRef}>Начинки</h2>
         <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`}>
           {
             ingredients?.map((ingredient) =>
