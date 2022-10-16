@@ -92,7 +92,11 @@ const BurgerConstructor = ({ ingredients, selectedIngredientsIds }) => {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  selectedIngredientsIds: PropTypes.shape({
+    bun: PropTypes.string,
+    filling: PropTypes.arrayOf(PropTypes.string)
+  })
 }
 
 export default BurgerConstructor;

@@ -28,7 +28,6 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
     setCurrent(bun);
   }
 
-
   const scrollToSauce = () => {
     const offsetPosition = sauceRef.current.getBoundingClientRect().top - sauceRef.current.parentNode.offsetTop;
     sauceRef.current.parentNode.scrollBy({
@@ -37,7 +36,6 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
     });
     setCurrent(sauce);
   }
-
 
   const scrollToMain = () => {
     const offsetPosition = mainRef.current.getBoundingClientRect().top - mainRef.current.parentNode.offsetTop;
@@ -48,7 +46,6 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
     setCurrent(main);
   }
 
-
   const openPopup = (ingredient) => {
     setIngredeintInfo(ingredient);
     setIngredientInfoOpened(true);
@@ -57,10 +54,6 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
   const closePopup = () => {
     setIngredientInfoOpened(false);
     setIngredeintInfo(null);
-  };
-
-  const handleEscKeydown = (e) => {
-    e.key === "Escape" && closePopup();
   };
 
   const countIngredient = (ingredient) => {
@@ -135,7 +128,7 @@ const BurgerIngredients = ({ ingredients, selectedIngredientsIds }) => {
         </ul>
       </div>
       {ingredientInfoOpened && (
-        <Modal closePopup={closePopup} onEscKeydown={handleEscKeydown}>
+        <Modal closePopup={closePopup}>
           <IngredientDetails ingredient={ingredientInfo} />
         </Modal>
       )}
@@ -148,7 +141,7 @@ BurgerIngredients.propTypes = {
   selectedIngredientsIds: PropTypes.shape({
     bun: PropTypes.string,
     filling: PropTypes.arrayOf(PropTypes.string)
-  }),
+  })
 };
 
 export default BurgerIngredients;

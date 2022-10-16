@@ -8,13 +8,17 @@ import styles from './Modal.module.scss';
 
 const modalsContainer = document.querySelector('#modals');
 
-const Modal = ({ closePopup, onEscKeydown, children }) => {
+const Modal = ({ closePopup, children }) => {
+
+  const handleEscKeydown = (e) => {
+    e.key === "Escape" && closePopup();
+  };
 
   React.useEffect(() => {
-    document.addEventListener('keydown', onEscKeydown);
+    document.addEventListener('keydown', handleEscKeydown);
 
     return () => {
-      document.removeEventListener('keydown', onEscKeydown);
+      document.removeEventListener('keydown', handleEscKeydown);
     };
   }, []);
 
@@ -37,8 +41,7 @@ const Modal = ({ closePopup, onEscKeydown, children }) => {
 
 Modal.propTypes = {
   closePopup: PropTypes.func.isRequired,
-  onEscKeydown: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired
 };
 
 export default Modal;

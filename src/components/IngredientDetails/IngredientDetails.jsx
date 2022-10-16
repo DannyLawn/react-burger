@@ -1,8 +1,9 @@
+import { ingredientPropType } from "../../utils/data";
 import styles from "./IngredientDetails.module.scss";
 import PropTypes from "prop-types";
 
 const IngredientDetails = ({ ingredient }) => {
-  return (
+  return ( 
     <div className={`${styles.container} mt-15 mb-15 ml-10 mr-10`}>
       <h2 className={`${styles.title} text text_type_main-large mb-3`}>
         Детали ингредиента
@@ -34,7 +35,7 @@ const IngredientDetails = ({ ingredient }) => {
 };
 
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.object.isRequired,
+  ingredient: ingredientPropType.isRequired,
 };
 
 export default IngredientDetails;
