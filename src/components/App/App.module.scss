@@ -10,4 +10,19 @@
     column-gap: 40px;
     padding-bottom: 40px;
   }
+
+  &__loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__loadingImg {
+    margin-top: 200px;
+    width: 70px;
+    height: 70px;
+    transform: scale(0.9);
+    opacity: .6;
+  }
+
 }

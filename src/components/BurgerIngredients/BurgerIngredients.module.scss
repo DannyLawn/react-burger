@@ -37,9 +37,10 @@
     display: flex;
   }
 }
-  .ingredientsSet {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px 24px;
-    margin-right: 6px;
-  }
+
+.ingredientsSet {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+  margin-right: 6px;
+}
