@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useReducer} from 'react';
+import React, { useContext, useReducer } from 'react';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientsApi } from '../../utils/API';
 import Modal from '../Modal/Modal';
@@ -15,21 +15,26 @@ const BurgerConstructor = ({ selectedIngredientsIds }) => {
   const [isOrderDetailsOpened, setIsOrderDetailsOpened] = React.useState(false);
   const [orderData, setOrderData] = React.useState(null);
 
-
-  const bun = ingredients.find(
+  const bun = React.useMemo(() => ingredients.find(
     (ingredient) => ingredient._id === ingredientIds.bun
-  );
+  ), [ingredientIds]);
 
-  const selectedIngredients = ingredientIds.filling.map((id) =>
-    ingredients.find((ingredient) => ingredient._id === id)
-  );
+  const selectedIngredients = React.useMemo(() =>
+    ingredientIds.filling.map((id) =>
+      ingredients.find((ingredient) => ingredient._id === id)
+    ), [ingredientIds]);
 
-  const orderIds = { "ingredients": [
-    bun._id,
-    ...selectedIngredients.map((ing) => ing._id),
-    bun._id
-  ]};
- 
+
+  const orderIds = React.useMemo(() => (
+    {
+      "ingredients": [
+        bun._id,
+        ...selectedIngredients.map((ing) => ing._id),
+        bun._id
+      ]
+    }), [selectedIngredients, bun]);
+
+
   const handlePlaceAnOrder = () => {
     const getOrderData = () => {
       ingredientsApi.getOrder(orderIds)
@@ -43,9 +48,7 @@ const BurgerConstructor = ({ selectedIngredientsIds }) => {
     getOrderData();
   };
 
-
-  // const totalPrice = selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0) + bun.price * 2;
-
+ 
   // Подсчет стоимости начинки через reducer
   const costInitialState = { count: 0 };
   const reducer = (state, action) => {
@@ -58,15 +61,14 @@ const BurgerConstructor = ({ selectedIngredientsIds }) => {
         throw new Error(`Wrong type of action: ${action.type}`);
     }
   }
+
   const [costOfFilling, costOfFillingDispatcher] = useReducer(reducer, costInitialState);
 
-  React.useEffect( () => {
-    selectedIngredients.forEach(elem => costOfFillingDispatcher({type: "increment", payment: elem.price}));
-  }, []);
+  React.useMemo(() => selectedIngredients.forEach(elem => costOfFillingDispatcher({ type: "increment", payment: elem.price })), [selectedIngredients]);
 
   const totalPrice = costOfFilling.count + bun.price * 2;
 
-  
+
 
   const openModal = () => {
     handlePlaceAnOrder();

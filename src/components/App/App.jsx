@@ -29,13 +29,13 @@ const App = () => {
   return (
     <div className={styles.page}>
       <AppHeader />
-      {ingredients.length ? (
-        <main className={styles.page__content}>
-          <BurgerIngredients ingredients={ingredients} selectedIngredientsIds={selectedIngredientsIds} />
-          <IngredientsContext.Provider value={{ingredients, setIngredients}}>
+      { Boolean(ingredients.length) ? (
+        <IngredientsContext.Provider value={{ingredients, setIngredients}}>
+          <main className={styles.page__content}>
+            <BurgerIngredients ingredients={ingredients} selectedIngredientsIds={selectedIngredientsIds} />
             <BurgerConstructor selectedIngredientsIds={selectedIngredientsIds} />
-          </IngredientsContext.Provider>
-        </main>
+          </main>
+        </IngredientsContext.Provider>
       ) : (
         <main className={styles.page__loadingContainer}><img className={styles.page__loadingImg} src={loadingGif} alt="Загрузка..." /></main>
       )}
