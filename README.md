@@ -7,8 +7,8 @@
  
 
 ### Используемые технологии
-- React, CRA
-- JavaScript, JSX
+- React(CRA)
+- JavaScript(JSX)
 - SCSS-modules
 
 ### Реализация
