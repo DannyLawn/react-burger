@@ -18,6 +18,16 @@ class Api {
       method: "GET"
     });
   }
+
+  getOrder(data) {
+    return this._request(`${this.url}/orders`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+  }
 }
 
 const ingredientsApi = new Api(URL);

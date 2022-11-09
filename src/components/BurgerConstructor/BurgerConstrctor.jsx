@@ -1,37 +1,88 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext, useReducer } from 'react';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from '../../utils/data';
+import { ingredientsApi } from '../../utils/API';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { IngredientsContext } from '../../context/IngredientsContext';
 import styles from "./BurgerConstructor.module.scss";
 
-const BurgerConstructor = ({ ingredients, selectedIngredientsIds }) => {
+const BurgerConstructor = ({ selectedIngredientsIds }) => {
 
+  const { ingredients } = useContext(IngredientsContext);
   const shortid = require('shortid');
   const [ingredientIds, setSelectedIds] = React.useState(selectedIngredientsIds);
   const [isOrderDetailsOpened, setIsOrderDetailsOpened] = React.useState(false);
+  const [orderData, setOrderData] = React.useState(null);
 
-  const bun = ingredients.find(
+  const bun = React.useMemo(() => ingredients.find(
     (ingredient) => ingredient._id === ingredientIds.bun
-  );
+  ), [ingredientIds]);
 
-  const selectedIngredients = ingredientIds.filling.map((id) =>
-    ingredients.find((ingredient) => ingredient._id === id)
-  );
+  const selectedIngredients = React.useMemo(() =>
+    ingredientIds.filling.map((id) =>
+      ingredients.find((ingredient) => ingredient._id === id)
+    ), [ingredientIds]);
 
-  const totalPrice = selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0) + bun.price * 2;
+
+  const orderIds = React.useMemo(() => (
+    {
+      "ingredients": [
+        bun._id,
+        ...selectedIngredients.map((ing) => ing._id),
+        bun._id
+      ]
+    }), [selectedIngredients, bun]);
+
+
+  const handlePlaceAnOrder = () => {
+    const getOrderData = () => {
+      ingredientsApi.getOrder(orderIds)
+        .then((res) => {
+          setOrderData(res);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`)
+        });
+    }
+    getOrderData();
+  };
+
+ 
+  // Подсчет стоимости начинки через reducer
+  const costInitialState = { count: 0 };
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "increment":
+        return { count: state.count + action.payment };
+      case "decrement":
+        return { count: state.count - action.payment };
+      default:
+        throw new Error(`Wrong type of action: ${action.type}`);
+    }
+  }
+
+  const [costOfFilling, costOfFillingDispatcher] = useReducer(reducer, costInitialState);
+
+  React.useMemo(() => selectedIngredients.forEach(elem => costOfFillingDispatcher({ type: "increment", payment: elem.price })), [selectedIngredients]);
+
+  const totalPrice = costOfFilling.count + bun.price * 2;
+
+
 
   const openModal = () => {
+    handlePlaceAnOrder();
     setIsOrderDetailsOpened(true);
   };
 
   const closeModal = () => {
     setIsOrderDetailsOpened(false);
+    setOrderData(null);
   };
 
   const handleEscKeydown = (event) => {
     event.key === "Escape" && closeModal();
+    setOrderData(null);
   };
 
   return (
@@ -83,7 +134,7 @@ const BurgerConstructor = ({ ingredients, selectedIngredientsIds }) => {
       </div>
       {isOrderDetailsOpened && (
         <Modal closePopup={closeModal} onEscKeydown={handleEscKeydown}>
-          <OrderDetails></OrderDetails>
+          <OrderDetails orderData={orderData} />
         </Modal>
       )
       }
@@ -92,7 +143,6 @@ const BurgerConstructor = ({ ingredients, selectedIngredientsIds }) => {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
   selectedIngredientsIds: PropTypes.shape({
     bun: PropTypes.string,
     filling: PropTypes.arrayOf(PropTypes.string)
