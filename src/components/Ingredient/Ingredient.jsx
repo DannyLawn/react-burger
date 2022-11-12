@@ -34,7 +34,7 @@ const Ingredient = ({ ingredient, onIngredientClick }) => {
 
 
   return (
-    <li className={`${styles.ingredient} ${Boolean(isHover) ? styles.isHover : ''}`} onClick={onIngredientClick} ref={dragRef}>
+    <li className={`${styles.ingredient} ${ isHover ? styles.isHover : ''}`} onClick={onIngredientClick} ref={dragRef}>
       <img className={`${styles.ingredient__img} mr-4 ml-4`} src={ingredient.image} alt={ingredient.name} />
       <div className={`${styles.ingredient__price} mt-1 mb-1`}>
         <p className="text text_type_digits-default">{ingredient.price}</p>

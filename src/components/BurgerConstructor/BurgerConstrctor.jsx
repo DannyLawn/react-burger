@@ -27,7 +27,7 @@ const BurgerConstructor = () => {
   });
 
   const countPrice = useMemo(() => {
-    const bunPrice = Boolean(selectedBun) ? selectedBun.info.price * 2 : 0;
+    const bunPrice = selectedBun ? selectedBun.info.price * 2 : 0;
     const totalPrice = selectedFilling.reduce((sum, ingredient) => sum += ingredient.info.price, bunPrice);
     return totalPrice;
   }, [selectedFilling, selectedBun]);
@@ -77,7 +77,7 @@ const BurgerConstructor = () => {
 
       <div className={styles.burgerConstructor__container}>
 
-        {Boolean(selectedBun) ? (
+        { selectedBun ? (
           <div className={`${styles.burgerConstructor__bunItem} ml-8`}>
             <ConstructorElement
               type="top"
@@ -89,13 +89,13 @@ const BurgerConstructor = () => {
           </div>
         ) : (<p className={`text text_type_main-default ${styles.addIngredientMassage}`}>Выберите БУЛКУ</p>)}
 
-        {Boolean(selectedFilling.length) ? (
+        { selectedFilling.length ? (
           <ul className={styles.burgerConstructor__list}>
             {renderFilling}
           </ul>
         ) : (<p className={`text text_type_main-default ${`${styles.addIngredientMassage} ${styles.addIngredientMassage_secondMassage}`}`}>Выберите НАЧИНКУ</p>)}
 
-        {Boolean(selectedBun) && (
+        { selectedBun && (
           <div className={`${styles.burgerConstructor__bunItem} ml-8`}>
             <ConstructorElement
               type="bottom"
@@ -113,7 +113,7 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium mr-2">{countPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" disabled={Boolean(!selectedFilling.length) || Boolean(!selectedBun)} onClick={makeAnOrder}>
+        <Button htmlType="button" type="primary" size="large" disabled={!selectedFilling.length || !selectedBun} onClick={makeAnOrder}>
           Оформить заказ
         </Button>
       </div>

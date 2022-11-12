@@ -24,13 +24,13 @@ const App = () => {
   return (
     <div className={styles.page}>
       <AppHeader />
-      {Boolean(ingredientsFailed) && (
+      {ingredientsFailed && (
         <>
           <p className={`text text_type_main-default ${styles.page__errorMassage}`}>Что-то пошло не так...</p>
           <p className={`text text_type_main-default ${styles.page__errorMassage}`}>Попробуйте обновить страницу или приходите позже.</p>
         </>
       )}
-      {Boolean(!ingredientsRequest && !ingredientsFailed) ? (
+      {(!ingredientsRequest && !ingredientsFailed) ? (
         <main className={styles.page__content}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
