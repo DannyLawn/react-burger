@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
 
-
 const URL = 'https://norma.nomoreparties.space/api';
-
 
 const ingredientTypes = {
   main: 'main',
   bun: 'bun',
   sauce: 'sauce'
 }
-
 
 const ingredientPropType = PropTypes.shape(
   {
@@ -28,19 +25,4 @@ const ingredientPropType = PropTypes.shape(
   }
 );
 
-
-const selectedIngredientsIds = {
-  bun: "60d3b41abdacab0026a733c6",
-  filling: [
-    "60d3b41abdacab0026a733ce",
-    "60d3b41abdacab0026a733cd",
-    "60d3b41abdacab0026a733d2",
-    "60d3b41abdacab0026a733d3",
-    "60d3b41abdacab0026a733d0",
-    "60d3b41abdacab0026a733d0",
-    "60d3b41abdacab0026a733ca",
-  ]
-}
-
-
-export { URL, ingredientTypes, ingredientPropType, selectedIngredientsIds };
+export { URL, ingredientTypes, ingredientPropType };

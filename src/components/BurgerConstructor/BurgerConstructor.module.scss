@@ -1,8 +1,12 @@
 .burgerConstructor {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  padding: 0;
+  justify-content: flex-start;
+  padding: 20px 10px;
+  height: max-content;
+  box-shadow: none;
+  will-change: box-shadow;
+  transition: all ease-in .2s;
   gap: 16px;
   list-style: none;
 
@@ -43,13 +47,6 @@
     }
   }
 
-  &__item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 8px;
-  }
-
   &__arrangeContainer {
     display: flex;
     justify-content: flex-end;
@@ -59,4 +56,65 @@
     display: flex;
     align-items: center;
   }
+
+  &__bunItem {
+    cursor: default;
+  }
+}
+
+.addIngredientMassage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100px;
+  width: 100%;
+  margin: 8% 0;
+  cursor: default;
+  text-align: center;
+  font-size: 21px;
+  will-change: text-shadow;
+  animation: flicker 1.5s infinite alternate;
+  color: #fff;
+
+  &_secondMassage {
+    margin: 5% 0;
+    align-items: center;
+  }
+}
+
+@keyframes flicker {
+
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+
+    text-shadow:
+      0 0 2px #fff,
+      0 0 6px #fff,
+      0 0 12px #fff,
+      0 0 22px #712CEA,
+      0 0 41px #712CEA,
+      0 0 68px #712CEA,
+      0 0 80px #712CEA,
+      0 0 130px #712CEA;
+
+  }
+
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+.dropActive {
+  box-shadow: 0px 0px 8px 4px rgba(51, 51, 255, 0.25), 0px 0px 8px 4px rgba(153, 51, 255, 0.25);
+}
+
+.dropHover {
+  box-shadow: 0px 0px 14px 8px rgba(115, 1, 245, 0.25), 0px 0px 16px 8px rgba(115, 9, 245, 0.25);
 }

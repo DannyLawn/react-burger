@@ -1,30 +1,43 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useInView } from 'react-hook-inview';
+import { openInfo, closeInfo } from '../../services/actions/ingredientDetails'
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientTypes, ingredientPropType } from '../../utils/data';
+import { ingredientTypes } from '../../utils/data';
 import Ingredient from '../Ingredient/Ingredient';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
-import { IngredientsContext } from '../../context/IngredientsContext';
 import styles from './BurgerIngredients.module.scss';
 
-const BurgerIngredients = ({ selectedIngredientsIds }) => {
+const BurgerIngredients = () => {
 
-  const { ingredients } = useContext(IngredientsContext);
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector(store => store.ingredients);
+  const { viewedIngredient } = useSelector(store => store.ingredientDetails);
+
   const main = ingredientTypes.main;
   const bun = ingredientTypes.bun;
   const sauce = ingredientTypes.sauce;
-  const [current, setCurrent] = React.useState(bun);
-  const [ingredientInfo, setIngredeintInfo] = React.useState(null);
-  const [ingredientInfoOpened, setIngredientInfoOpened] = React.useState(false);
-  const bunRef = React.useRef(null);
-  const sauceRef = React.useRef(null);
-  const mainRef = React.useRef(null);
 
+  const bunTitleRef = React.useRef(null);
+  const sauceTitleRef = React.useRef(null);
+  const mainTitleRef = React.useRef(null);
+
+  const [current, setCurrent] = React.useState(bun);
+
+  const [bunRef, inViewBun] = useInView({
+    threshold: 0.4,
+  });
+  const [sauceRef, inViewSauce] = useInView({
+    threshold: 0.4,
+  });
+  const [mainRef, inViewMain] = useInView({
+    threshold: 0.4,
+  });
 
   const scrollToBun = () => {
-    const offsetPosition = bunRef.current.getBoundingClientRect().top - bunRef.current.parentNode.offsetTop;
-    bunRef.current.parentNode.scrollBy({
+    const offsetPosition = bunTitleRef.current.getBoundingClientRect().top - bunTitleRef.current.parentNode.offsetTop;
+    bunTitleRef.current.parentNode.scrollBy({
       top: offsetPosition,
       behavior: 'smooth'
     });
@@ -32,8 +45,8 @@ const BurgerIngredients = ({ selectedIngredientsIds }) => {
   }
 
   const scrollToSauce = () => {
-    const offsetPosition = sauceRef.current.getBoundingClientRect().top - sauceRef.current.parentNode.offsetTop;
-    sauceRef.current.parentNode.scrollBy({
+    const offsetPosition = sauceTitleRef.current.getBoundingClientRect().top - sauceTitleRef.current.parentNode.offsetTop;
+    sauceTitleRef.current.parentNode.scrollBy({
       top: offsetPosition,
       behavior: 'smooth'
     });
@@ -41,32 +54,31 @@ const BurgerIngredients = ({ selectedIngredientsIds }) => {
   }
 
   const scrollToMain = () => {
-    const offsetPosition = mainRef.current.getBoundingClientRect().top - mainRef.current.parentNode.offsetTop;
-    mainRef.current.parentNode.scrollBy({
+    const offsetPosition = mainTitleRef.current.getBoundingClientRect().top - mainTitleRef.current.parentNode.offsetTop;
+    mainTitleRef.current.parentNode.scrollBy({
       top: offsetPosition,
       behavior: 'smooth'
     });
     setCurrent(main);
   }
 
+  useEffect(() => {
+    if (inViewBun) {
+      setCurrent(bun);
+    } else if (inViewSauce) {
+      setCurrent(sauce);
+    } else if (inViewMain) {
+      setCurrent(main);
+    }
+  }, [inViewBun, inViewMain, inViewSauce, bun, main, sauce]);
+
+
   const openPopup = (ingredient) => {
-    setIngredeintInfo(ingredient);
-    setIngredientInfoOpened(true);
+    dispatch(openInfo(ingredient));
   };
 
   const closePopup = () => {
-    setIngredientInfoOpened(false);
-    setIngredeintInfo(null);
-  };
-
-  const countIngredient = (ingredient) => {
-    if (ingredient.type !== bun) {
-      const sameIngredients = selectedIngredientsIds.filling.filter(
-        (id) => id === ingredient._id
-      );
-      return sameIngredients.length;
-    }
-    return selectedIngredientsIds.bunId === ingredient._id ? 2 : 0;
+    dispatch(closeInfo());
   };
 
   return (
@@ -84,45 +96,42 @@ const BurgerIngredients = ({ selectedIngredientsIds }) => {
         </Tab>
       </div>
       <div className={styles.burgerIngredients}>
-        <h2 className="text text_type_main-medium pt-10 mb-6" ref={bunRef}>Булки</h2>
-        <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`}>
+        <h2 className="text text_type_main-medium pt-10 mb-6" id={bun} ref={bunTitleRef}>Булки</h2>
+        <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`} ref={bunRef} >
           {
             ingredients?.map((ingredient) =>
               ingredient.type === bun && (
                 <Ingredient
                   ingredient={ingredient}
                   key={ingredient._id}
-                  count={countIngredient(ingredient)}
                   onIngredientClick={() => openPopup(ingredient)}
                 />
               )
             )
           }
         </ul>
-        <h2 className="text text_type_main-medium pt-10 mb-6" ref={sauceRef}>Соусы</h2>
-        <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`}>
+        <h2 className="text text_type_main-medium pt-10 mb-6" id={sauce} ref={sauceTitleRef}>Соусы</h2>
+        <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`} ref={sauceRef}>
           {
             ingredients?.map((ingredient) =>
               ingredient.type === sauce && (
                 <Ingredient
                   ingredient={ingredient}
                   key={ingredient._id}
-                  count={countIngredient(ingredient)}
                   onIngredientClick={() => openPopup(ingredient)}
                 />
               )
             )
           }
         </ul>
-        <h2 className="text text_type_main-medium pt-10 mb-6" ref={mainRef}>Начинки</h2>
-        <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`}>
+        <h2 className="text text_type_main-medium pt-10 mb-6" id={main} ref={mainTitleRef}>Начинки</h2>
+        <ul className={`${styles.ingredientsSet} mt-6 mb-6 pl-4`} ref={mainRef}>
           {
             ingredients?.map((ingredient) =>
               ingredient.type === main && (
                 <Ingredient
                   ingredient={ingredient}
                   key={ingredient._id}
-                  count={countIngredient(ingredient)}
                   onIngredientClick={() => openPopup(ingredient)}
                 />
               )
@@ -130,21 +139,13 @@ const BurgerIngredients = ({ selectedIngredientsIds }) => {
           }
         </ul>
       </div>
-      {ingredientInfoOpened && (
+      {Boolean(viewedIngredient) && (
         <Modal closePopup={closePopup}>
-          <IngredientDetails ingredient={ingredientInfo} />
+          <IngredientDetails ingredient={viewedIngredient} />
         </Modal>
       )}
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  selectedIngredientsIds: PropTypes.shape({
-    bun: PropTypes.string,
-    filling: PropTypes.arrayOf(PropTypes.string)
-  })
-};
 
 export default BurgerIngredients;

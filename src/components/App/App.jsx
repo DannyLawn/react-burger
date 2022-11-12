@@ -1,41 +1,42 @@
-import React from 'react';
-import { ingredientsApi } from '../../utils/API';
-import { selectedIngredientsIds } from '../../utils/data';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredients } from '../../services/actions/ingredients';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstrctor';
-import { IngredientsContext } from '../../context/IngredientsContext';
-import loadingGif from '../../images/loading.gif';
+import loadingGif from '../../images/loading.svg';
 import styles from './App.module.scss';
 
 
 const App = () => {
 
-  const [ingredients, setIngredients] = React.useState([]);
+  const dispatch = useDispatch();
+  const { ingredientsRequest, ingredientsFailed } = useSelector((store) => store.ingredients);
 
-  React.useEffect(() => {
-    const getIngredients = () => {
-      ingredientsApi.getIngredients()
-        .then((res) => {
-          setIngredients(res.data);
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`)
-        });
-    }
-    getIngredients();
-  }, []);
+  useEffect(() => {
+    dispatch(
+      getIngredients()
+    )
+  }, [dispatch]);
 
   return (
     <div className={styles.page}>
       <AppHeader />
-      { Boolean(ingredients.length) ? (
-        <IngredientsContext.Provider value={{ingredients, setIngredients}}>
-          <main className={styles.page__content}>
-            <BurgerIngredients ingredients={ingredients} selectedIngredientsIds={selectedIngredientsIds} />
-            <BurgerConstructor selectedIngredientsIds={selectedIngredientsIds} />
-          </main>
-        </IngredientsContext.Provider>
+      {Boolean(ingredientsFailed) && (
+        <>
+          <p className={`text text_type_main-default ${styles.page__errorMassage}`}>Что-то пошло не так...</p>
+          <p className={`text text_type_main-default ${styles.page__errorMassage}`}>Попробуйте обновить страницу или приходите позже.</p>
+        </>
+      )}
+      {Boolean(!ingredientsRequest && !ingredientsFailed) ? (
+        <main className={styles.page__content}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
+        </main>
       ) : (
         <main className={styles.page__loadingContainer}><img className={styles.page__loadingImg} src={loadingGif} alt="Загрузка..." /></main>
       )}

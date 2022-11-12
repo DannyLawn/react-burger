@@ -11,7 +11,7 @@ class Api {
 
   _request(url, options) {
     return fetch(url, options).then(this._checkResponse)
-  }  
+  }
 
   getIngredients() {
     return this._request(`${this.url}/ingredients`, {
@@ -19,7 +19,7 @@ class Api {
     });
   }
 
-  getOrder(data) {
+  postOrder(data) {
     return this._request(`${this.url}/orders`, {
       method: "POST",
       headers: {
@@ -30,6 +30,6 @@ class Api {
   }
 }
 
-const ingredientsApi = new Api(URL);
+const currentApi = new Api(URL);
 
-export { ingredientsApi };
+export { currentApi };

@@ -19,10 +19,15 @@
 
   &__loadingImg {
     margin-top: 200px;
-    width: 70px;
-    height: 70px;
-    transform: scale(0.9);
-    opacity: .6;
+    width: 140px;
+    height: 140px;
+    opacity: .7;
+  }
+
+  &__errorMassage {
+    margin: 50px 0;
+    color: rgba(255, 255, 255, 0.908);
+    opacity: .8;
   }
 
 }
