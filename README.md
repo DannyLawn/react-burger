@@ -1,4 +1,4 @@
-# Проект: Stellar Burger
+# Проект: Stellar Burgers
 Cоздан в рамках курса Яндекс.Практикум "Веб-разработчик плюс".
 ### __[Страница проекта](https://dannylawn.github.io/react-burger "Перейти на сайт")__ 
 ------
