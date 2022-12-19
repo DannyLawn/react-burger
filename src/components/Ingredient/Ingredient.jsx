@@ -23,7 +23,7 @@ const Ingredient = ({ ingredient, onIngredientClick }) => {
   const countIngredient = useMemo(() => {
     if (ingredient.type !== bun) {
       const sameIngredients = selectedFilling?.filter(
-        (topping) => topping.info._id === ingredient._id
+        (filling) => filling.info._id === ingredient._id
       );
       return sameIngredients?.length;
     }
