@@ -1,0 +1,28 @@
+.main {
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    padding-bottom: 40px;
+  }
+
+  &__loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__loadingImg {
+    margin-top: 200px;
+    width: 140px;
+    height: 140px;
+    opacity: .7;
+  }
+
+  &__errorMassage {
+    margin: 50px 0;
+    color: rgba(255, 255, 255, 0.908);
+    opacity: .8;
+  }
+
+}

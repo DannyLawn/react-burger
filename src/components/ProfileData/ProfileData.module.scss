@@ -1,0 +1,9 @@
+.profileData {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  grid-area: content;
+  margin-top: 80px;
+  width: max-content;
+}

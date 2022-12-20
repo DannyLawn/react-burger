@@ -6,7 +6,7 @@ class Api {
   }
 
   _checkResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res);
+    return res.ok ? res.json() : res.json().then((data) => Promise.reject(data));
   }
 
   _request(url, options) {
@@ -16,7 +16,7 @@ class Api {
   getIngredients() {
     return this._request(`${this.url}/ingredients`, {
       method: "GET"
-    });
+    })
   }
 
   postOrder(data) {
@@ -26,6 +26,26 @@ class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
+    })
+  }
+
+  requestPasswordReset(email) {
+    return this._request(`${this.url}/password-reset`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    })
+  }
+
+  resetPassword(password, token) {
+    return this._request(`${this.url}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ password, token }),
     })
   }
 }

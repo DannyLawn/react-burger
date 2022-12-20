@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-hook-inview';
-import { openInfo, closeInfo } from '../../services/actions/ingredientDetails'
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientTypes } from '../../utils/data';
 import Ingredient from '../Ingredient/Ingredient';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import Modal from '../Modal/Modal';
 import styles from './BurgerIngredients.module.scss';
 
 const BurgerIngredients = () => {
 
-  const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.ingredients);
-  const { viewedIngredient } = useSelector(store => store.ingredientDetails);
 
   const main = ingredientTypes.main;
   const bun = ingredientTypes.bun;
@@ -73,14 +68,6 @@ const BurgerIngredients = () => {
   }, [inViewBun, inViewMain, inViewSauce, bun, main, sauce]);
 
 
-  const openPopup = (ingredient) => {
-    dispatch(openInfo(ingredient));
-  };
-
-  const closePopup = () => {
-    dispatch(closeInfo());
-  };
-
   return (
     <section>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
@@ -104,7 +91,6 @@ const BurgerIngredients = () => {
                 <Ingredient
                   ingredient={ingredient}
                   key={ingredient._id}
-                  onIngredientClick={() => openPopup(ingredient)}
                 />
               )
             )
@@ -118,7 +104,6 @@ const BurgerIngredients = () => {
                 <Ingredient
                   ingredient={ingredient}
                   key={ingredient._id}
-                  onIngredientClick={() => openPopup(ingredient)}
                 />
               )
             )
@@ -132,18 +117,12 @@ const BurgerIngredients = () => {
                 <Ingredient
                   ingredient={ingredient}
                   key={ingredient._id}
-                  onIngredientClick={() => openPopup(ingredient)}
                 />
               )
             )
           }
         </ul>
       </div>
-      {Boolean(viewedIngredient) && (
-        <Modal closePopup={closePopup}>
-          <IngredientDetails ingredient={viewedIngredient} />
-        </Modal>
-      )}
     </section>
   );
 }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { useDrag, useDrop } from "react-dnd";
 import { useSelector, useDispatch } from 'react-redux';
-import { ingredientPropType } from '../../utils/data';
+import { ingredientsPropType } from '../../utils/data';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { changeFilling } from '../../services/actions/burgerConstructor';
 import styles from './Filling.module.scss';
@@ -82,7 +82,7 @@ const Filling = ({ ingredient, index, handleRemoveIngredient }) => {
 Filling.propTypes = {
   ingredient: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    info: ingredientPropType
+    info: ingredientsPropType
    }),
   index: PropTypes.number.isRequired,
   handleRemoveIngredient: PropTypes.func.isRequired

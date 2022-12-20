@@ -8,7 +8,7 @@ const ingredientTypes = {
   sauce: 'sauce'
 }
 
-const ingredientPropType = PropTypes.shape(
+const ingredientsPropType = PropTypes.shape(
   {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -25,4 +25,4 @@ const ingredientPropType = PropTypes.shape(
   }
 );
 
-export { URL, ingredientTypes, ingredientPropType };
+export { URL, ingredientTypes, ingredientsPropType };
