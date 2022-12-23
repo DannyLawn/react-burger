@@ -3,12 +3,16 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileData from "../../components/ProfileData/ProfileData";
 import inDevelopmentImg from '../../images/pageInDevelopment.png';
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../../services/actions/user";
 import styles from "./Profile.module.scss";
 
 
 const Profile = () => {
 
+  const { checkedAuth } = useSelector((store) => store.user)
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const profileCaption = () => {
     switch (pathname) {
@@ -21,8 +25,12 @@ const Profile = () => {
     }
   };
 
+  const handleLogOut = (e) => {
+    dispatch(logOut());
+  }
 
-  return (
+
+  return checkedAuth && (
     <main className={styles.profile}>
       <ul className={styles.profile__nav}>
         <li>
@@ -50,6 +58,7 @@ const Profile = () => {
             htmlType="button"
             type="secondary"
             extraClass={`${styles.profile__link} text text_type_main-medium`}
+            onClick={handleLogOut}
           >
             Выход
           </Button>

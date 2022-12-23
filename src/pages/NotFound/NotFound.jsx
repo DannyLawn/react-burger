@@ -14,7 +14,7 @@ const NotFound = () => {
 
   return (
     <div className={styles.notFound}>
-      <img src={notFoundImg} className={styles.notFound__mainImage} alt="Робот разобравший себя, с надписью 'страница не найдена'." />
+      <img src={notFoundImg} className={styles.notFound__mainImage} alt="Робот собирающий себя, с подписью  'страница не найдена'." />
       <Button htmlType="button" type="primary" size="medium" onClick={goToMain}>
         Вернуться на главную
       </Button>

@@ -25,4 +25,37 @@ const ingredientsPropType = PropTypes.shape(
   }
 );
 
-export { URL, ingredientTypes, ingredientsPropType };
+const infoErrorMessages = [
+  {
+    serverMessage: "email or password are incorrect",
+    message: "Неверная почта или пароль"
+  },
+  {
+    serverMessage: "User already exists",
+    message: "Пользователь уже существует",
+  },
+  {
+    serverMessage: "User with such email already exists",
+    message: "Пользователь с такой почтой уже существует",
+  },
+  {
+    serverMessage: "Unauthorized user",
+    message: "Авторизуйтесь для оформления заказа",
+  },
+  {
+    serverMessage: "Incorrect reset token",
+    message: "Неправильный код",
+  },
+  {
+    serverMessage: "User data changes",
+    message: "Данные изменены",
+  },
+  {
+    serverMessage: "Password changed",
+    message: "Пароль изменен",
+  }
+];
+
+const defaultInfoErrorMessage = "Что-то пошло не так... Попробуйте повторить позже";
+
+export { URL, ingredientTypes, ingredientsPropType, defaultInfoErrorMessage, infoErrorMessages };

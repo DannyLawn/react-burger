@@ -6,4 +6,11 @@
   grid-area: content;
   margin-top: 80px;
   width: max-content;
+
+  &__buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 25px;
+  }
 }

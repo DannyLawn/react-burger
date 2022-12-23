@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useMemo, useRef} from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { ingredientsPropType } from '../../utils/data';
 import NotFound from "../../pages/NotFound/NotFound";
 import styles from "./IngredientDetails.module.scss";
@@ -7,6 +7,18 @@ import styles from "./IngredientDetails.module.scss";
 const IngredientDetails = ({ ingredients }) => {
  
   const { id } = useParams();
+  const location = useLocation();
+  const titleRef = useRef(null);
+
+  const changeTitleAlign = () => {
+    titleRef.current.classList.add(styles.title__fullScreen)
+  }
+
+  useEffect(() => {
+    !location.state && (
+      changeTitleAlign()
+    )
+  }, []);
 
   const ingredient = useMemo(
     () => ingredients?.find((ingredient) => ingredient._id === id),
@@ -15,7 +27,7 @@ const IngredientDetails = ({ ingredients }) => {
 
   return ingredient ? (
     <div className={`${styles.container} mt-15 mb-15 ml-10 mr-10`}>
-      <h2 className={`${styles.title} text text_type_main-large mb-3`}>
+      <h2 className={`${styles.title} text text_type_main-large mb-3`} ref={titleRef}>
         Детали ингредиента
       </h2>
       <img src={ingredient.image_large} alt={ingredient.name} />
