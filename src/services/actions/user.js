@@ -23,6 +23,14 @@ export const UPGRADE_USER_REQUEST = 'UPGRADE_USER_REQUEST';
 export const UPGRADE_USER_SUCCESS = 'UPGRADE_USER_SUCCESS';
 export const UPGRADE_USER_FAILED = 'UPGRADE_USER_FAILED';
 
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
+export const FORGOT_PASSWORD_SUCCESS =  'FORGOT_PASSWORD_SUCCESS';
+export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
+
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS =  'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
+
 export const SHOW_ERROR = "SHOW_ERROR";
 export const HIDE_ERROR = "HIDE_ERROR";
 
@@ -37,7 +45,7 @@ export const register = ({ email, password, name }) => {
       if (res && res.success) {
         dispatch({
           type: REGISTER_SUCCESS,
-          payload: res.user
+          payload: res
         });
         localStorage.setItem("refreshToken", res.refreshToken);
         setCookie("accessToken", res.accessToken);
@@ -167,6 +175,44 @@ export const upgradeUser = ({ email, password, name }) => {
     );
   };
 };
+
+export const forgotPassword = (email) => {
+  return function (dispatch) {
+    dispatch({
+      type: FORGOT_PASSWORD_REQUEST
+    });
+    currentApi.forgotPasswordReset(email).then((res) => {
+      dispatch({
+        type: FORGOT_PASSWORD_SUCCESS,
+        payload: res
+      })
+    }).catch((err) => 
+    dispatch({
+      type: FORGOT_PASSWORD_FAILED,
+      payload: err.message
+    })
+    );
+  }
+}
+
+export const resetPassword = (data) => {
+  return function (dispatch) {
+    dispatch({
+      type: RESET_PASSWORD_REQUEST
+    });
+    currentApi.resetPassword(data).then((res) => {
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        payload: res
+      })
+    }).catch((err) => 
+    dispatch({
+      type: RESET_PASSWORD_FAILED,
+      payload: err.message
+    })
+    );
+  }
+}
 
 export const showError = (message) => ({
   type: SHOW_ERROR,

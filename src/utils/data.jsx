@@ -32,15 +32,7 @@ const infoErrorMessages = [
   },
   {
     serverMessage: "User already exists",
-    message: "Пользователь уже существует",
-  },
-  {
-    serverMessage: "User with such email already exists",
     message: "Пользователь с такой почтой уже существует",
-  },
-  {
-    serverMessage: "Unauthorized user",
-    message: "Авторизуйтесь для оформления заказа",
   },
   {
     serverMessage: "Incorrect reset token",
@@ -51,9 +43,16 @@ const infoErrorMessages = [
     message: "Данные изменены",
   },
   {
-    serverMessage: "Password changed",
+    serverMessage: "Password successfully reset",
     message: "Пароль изменен",
-  }
+  },
+  {
+    serverMessage: "Reset email sent",
+    message: "Код восстановления отправлен на почту"
+  },
+  {serverMessage: "unauthorized order",
+  message: "Заказ доступен авторизованным пользователям"
+}
 ];
 
 const defaultInfoErrorMessage = "Что-то пошло не так... Попробуйте повторить позже";

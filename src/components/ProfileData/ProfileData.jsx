@@ -67,7 +67,6 @@ const ProfileData = () => {
         name="password"
         icon={"EditIcon"}
         errorText={"Длина пароля должны быть более 5 символов"}
-        type="password"
         min={5}
         value={editForm.password}
         onChange={onChange}

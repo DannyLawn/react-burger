@@ -40,7 +40,7 @@ const Ingredient = ({ ingredient }) => {
     <li ref={dragRef} className={`${styles.ingredient} ${ isHover ? styles.isHover : ''}`}>
       <Link  className={styles.ingredient__link}  to={{
           pathname: `/ingredients/${ingredient._id}`,
-          state: { background: location },
+          state: { background: location }
         }}>
       <img className={`${styles.ingredient__img} mr-4 ml-4`} src={ingredient.image} alt={ingredient.name} />
       <div className={`${styles.ingredient__price} mt-1 mb-1`}>

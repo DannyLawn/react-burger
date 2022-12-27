@@ -19,11 +19,12 @@ class Api {
     })
   }
 
-  postOrder(data) {
+  postOrder(data, token) {
     return this._request(`${this.url}/orders`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: token
       },
       body: JSON.stringify(data)
     })
@@ -90,25 +91,25 @@ class Api {
     }) 
   }
   
-  // requestPasswordReset(email) {
-  //   return this._request(`${this.url}/password-reset`, {
-  //     method: "POST",
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ email })
-  //   })
-  // }
+  forgotPasswordReset(email) {
+    return this._request(`${this.url}/password-reset`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( email )
+    })
+  }
 
-  // resetPassword(password, token) {
-  //   return this._request(`${this.url}/password-reset/reset`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //     body: JSON.stringify({ password, token }),
-  //   })
-  // }
+  resetPassword(data) {
+    return this._request(`${this.url}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+  }
 }
 
 const currentApi = new Api(URL);

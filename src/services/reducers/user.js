@@ -14,6 +14,12 @@ import {
   UPGRADE_USER_REQUEST,
   UPGRADE_USER_SUCCESS,
   UPGRADE_USER_FAILED,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILED,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
   CHECK_AUTH,
   SHOW_ERROR,
   HIDE_ERROR
@@ -32,7 +38,13 @@ const initialState = {
   userDataRequest: false,
   userDataFailed: false,
   upgradeUserRequest: false,
-  upgradeUserFailed: false
+  upgradeUserFailed: false,
+  forgotPassRequest: false,
+  forgotPassFailed: false,
+  forgotPassSuccess: false,
+  resetPassRequest: false,
+  resetPassFailed: false,
+  resetPassSuccess: false
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -45,8 +57,7 @@ export const userReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        userData: action.payload.userData,
-        errorMessage: action.payload.message,
+        userData: action.payload.user,
         registerRequest: false,
         registerFailed: false
       };
@@ -135,6 +146,50 @@ export const userReducer = (state = initialState, action) => {
         upgradeUserFailed: true,
         upgradeUserRequest: false
       };
+    case FORGOT_PASSWORD_REQUEST:
+      return {
+      ...state,
+      forgotPassRequest: true
+      };
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        forgotPassSuccess: true,
+        forgotPassRequest: false,
+        forgotPassFailed: false,
+        errorMessage: action.payload.message
+      };
+    case FORGOT_PASSWORD_FAILED: 
+      return {
+        ...state,
+        errorMessage: action.payload,
+        forgotPassFailed: true,
+        forgotPassRequest: false,
+        forgotPassSuccess: false
+      };
+    case RESET_PASSWORD_REQUEST: 
+      return {
+        ...state,
+        resetPassRequest: true
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        resetPassSuccess: true,
+        errorMessage: action.payload.message,
+        forgotPassSuccess: false,
+        resetPassRequest: false,
+        resetPassFailed: false
+      }
+    case RESET_PASSWORD_FAILED:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        resetPassFailed: true,
+        resetPassRequest: false,
+        resetPassSuccess: false
+      }
+    
     case CHECK_AUTH:
       return {
         ...state,

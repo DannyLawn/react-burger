@@ -22,6 +22,7 @@ const Register = () => {
     password: "",
     name: ""
   });
+
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const onChange = (e) => {

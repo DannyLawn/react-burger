@@ -26,7 +26,7 @@ const App = () => {
   const background = location.state?.background;
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const { userData, errorMessage } = useSelector((state) => state.user);
+  const { errorMessage } = useSelector((state) => state.user);
 
 
   useEffect(() => {
@@ -70,7 +70,6 @@ const App = () => {
             <IngredientDetails ingredients={ingredients} />
           )}
         </Route>
-
         <Route path="*">
           <NotFound />
         </Route>

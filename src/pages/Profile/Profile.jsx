@@ -1,10 +1,12 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { NavLink, useLocation } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileData from "../../components/ProfileData/ProfileData";
 import inDevelopmentImg from '../../images/pageInDevelopment.png';
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../services/actions/user";
+import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
+import Preloader from "../../components/Preloader/Preloader";
 import styles from "./Profile.module.scss";
 
 
@@ -30,7 +32,7 @@ const Profile = () => {
   }
 
 
-  return checkedAuth && (
+  return checkedAuth ? (
     <main className={styles.profile}>
       <ul className={styles.profile__nav}>
         <li>
@@ -68,15 +70,15 @@ const Profile = () => {
         {profileCaption()}
       </p>
       <Switch>
-        <Route path="/profile" exact>
+        <ProtectedRoute path="/profile" forAuthUsers exact>
           <ProfileData />
-        </Route>
-        <Route path="/profile/orders" exact>
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" forAuthUsers exact>
           <img className={styles.profile__inDevelopmentImg} src={inDevelopmentImg} alt="Робот разобравший себя, с надписью 'страница в разработке'." />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </main>
-  )
+  ) : (<Preloader />)
 };
 
 export default Profile;
