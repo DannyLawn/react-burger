@@ -8,7 +8,7 @@ const ingredientTypes = {
   sauce: 'sauce'
 }
 
-const ingredientPropType = PropTypes.shape(
+const ingredientsPropType = PropTypes.shape(
   {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -25,4 +25,37 @@ const ingredientPropType = PropTypes.shape(
   }
 );
 
-export { URL, ingredientTypes, ingredientPropType };
+const infoErrorMessages = [
+  {
+    serverMessage: "email or password are incorrect",
+    message: "Неверная почта или пароль"
+  },
+  {
+    serverMessage: "User already exists",
+    message: "Пользователь с такой почтой уже существует",
+  },
+  {
+    serverMessage: "Incorrect reset token",
+    message: "Неправильный код",
+  },
+  {
+    serverMessage: "User data changes",
+    message: "Данные изменены",
+  },
+  {
+    serverMessage: "Password successfully reset",
+    message: "Пароль изменен",
+  },
+  {
+    serverMessage: "Reset email sent",
+    message: "Код восстановления отправлен на почту"
+  },
+  {
+    serverMessage: "unauthorized order",
+    message: "Заказ доступен авторизованным пользователям"
+  }
+];
+
+const defaultInfoErrorMessage = "Что-то пошло не так... Попробуйте повторить позже";
+
+export { URL, ingredientTypes, ingredientsPropType, defaultInfoErrorMessage, infoErrorMessages };

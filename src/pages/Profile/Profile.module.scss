@@ -1,0 +1,46 @@
+.profile {
+  display: grid;
+  grid-template-columns: 320px 860px;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas: 
+                      'nav content' 
+                      'caption content';
+  column-gap: 60px;    
+  margin-top: 40px;
+  width: 100%;
+  max-width: 1240px;                 
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 36px;
+    grid-area: nav;
+    margin-top: 96px;
+    padding: 0 0 80px 0;
+    list-style: none;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: #8585AD;
+
+    &:hover {
+      color: #F2F2F3;
+      opacity: 0.7;
+    }
+
+    &_active {
+      color: #F2F2F3;
+    }    
+  }
+
+  &__caption {
+    grid-area: caption;
+    opacity: 0.4;
+  }
+
+  &__inDevelopmentImg {
+    height: 0;
+    min-height: 100%;
+  }
+}

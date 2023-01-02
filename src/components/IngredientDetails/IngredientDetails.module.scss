@@ -9,6 +9,11 @@
 
 .title {
   width: 100%;
+
+  &__fullScreen {
+    text-align: center;
+    margin-top: 60px;
+  }
 }
 
 .nutrients {

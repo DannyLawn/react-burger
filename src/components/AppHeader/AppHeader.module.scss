@@ -1,36 +1,42 @@
 .header {
-  box-sizing: border-box;
-  max-width: 1920px;
+  display: flex;
+  justify-content: center;
   width: 100%;
-  padding: 16px;
+  box-sizing: border-box;
   background-color: #1c1c21;
 
   &__container {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    box-sizing: border-box;
-    max-width: 1310px;
-    margin: 0 auto;
+    justify-items: center;
+    width: 100%;
+    max-width: 1240px;
   }
 
   &__nav {
+    display: flex;
+    justify-self: left;
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    margin-right: 5.8%;
   }
 
   &__link {
     display: flex;
     align-items: center;
+    justify-self: right;
     text-decoration: none;
-    color: #f2f2f3;
-  }
+    color: #8585AD;
 
-  &__person {
-    composes: header__link;
-    margin-left: auto;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &_active {
+      color: #F2F2F3;
+    }
+    
   }
 }

@@ -1,4 +1,5 @@
 import { currentApi } from '../../utils/API';
+import { getCookie } from '../../utils/cookie';
 
 export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
 export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
@@ -11,11 +12,11 @@ export const postOrder = (order) => {
     dispatch({
       type: POST_ORDER_REQUEST
     });
-    currentApi.postOrder(order).then((res) => res && res.success &&
+    currentApi.postOrder(order, getCookie("accessToken")).then((res) => res && res.success &&
       dispatch({
         type: POST_ORDER_SUCCESS,
         payload: res
-      })
+      })  
     ).catch((err) =>
       dispatch({
         type: POST_ORDER_FAILED

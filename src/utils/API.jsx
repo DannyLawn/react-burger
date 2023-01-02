@@ -6,7 +6,7 @@ class Api {
   }
 
   _checkResponse(res) {
-    return res.ok ? res.json() : Promise.reject(res);
+    return res.ok ? res.json() : res.json().then((data) => Promise.reject(data));
   }
 
   _request(url, options) {
@@ -16,16 +16,98 @@ class Api {
   getIngredients() {
     return this._request(`${this.url}/ingredients`, {
       method: "GET"
-    });
+    })
   }
 
-  postOrder(data) {
+  postOrder(data, token) {
     return this._request(`${this.url}/orders`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+      },
+      body: JSON.stringify(data)
+    })
+  }
+
+  register(email, password, name) {
+    return this._request(`${this.url}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({ email, password, name })
+    })
+  }
+
+  logIn(email, password) {
+    return this._request(`${this.url}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    })
+  }
+
+  logOut(token) {
+    return this._request(`${this.url}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({ token })
+    })
+  }
+
+  refreshToken(token) {
+    return this._request(`${this.url}/auth/token`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({ token })
+    })
+  }
+
+  getUserData(token) {
+    return this._request(`${this.url}/auth/user`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: token
+      }
+    })
+  }
+
+  upgradeUserData(token, email, password, name) {
+    return this._request(`${this.url}/auth/user`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: token
+      },
+      body: JSON.stringify({ email, password, name })
+    })
+  }
+
+  forgotPasswordReset(email) {
+    return this._request(`${this.url}/password-reset`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(email)
+    })
+  }
+
+  resetPassword(data) {
+    return this._request(`${this.url}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
   }
 }

@@ -8,12 +8,16 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from "./BurgerConstructor.module.scss";
 import Filling from '../Filling/Filling';
+import { useHistory } from 'react-router-dom';
+import { showError } from '../../services/actions/user';
 
 const BurgerConstructor = () => {
 
   const { selectedFilling, selectedBun } = useSelector(store => store.burgerConstructor);
   const { isOrderDetailsOpened } = useSelector(store => store.order);
   const dispatch = useDispatch();
+  const { userData } = useSelector((store) => store.user);
+  const history = useHistory();
 
   const [{ isHover, canDrop }, dropTarget] = useDrop({
     accept: "ingredients",
@@ -42,7 +46,12 @@ const BurgerConstructor = () => {
     }), [selectedFilling, selectedBun]);
 
   const makeAnOrder = () => {
-    dispatch(postOrder(orderListIds));
+    if (userData) {
+      dispatch(postOrder(orderListIds));
+    } else {
+      dispatch(showError("unauthorized order"));
+      history.push('/login');
+    }
   };
 
   const closeOrderDetails = () => {
@@ -77,7 +86,7 @@ const BurgerConstructor = () => {
 
       <div className={styles.burgerConstructor__container}>
 
-        { selectedBun ? (
+        {selectedBun ? (
           <div className={`${styles.burgerConstructor__bunItem} ml-8`}>
             <ConstructorElement
               type="top"
@@ -89,13 +98,13 @@ const BurgerConstructor = () => {
           </div>
         ) : (<p className={`text text_type_main-default ${styles.addIngredientMassage}`}>Выберите БУЛКУ</p>)}
 
-        { selectedFilling.length ? (
+        {selectedFilling.length ? (
           <ul className={styles.burgerConstructor__list}>
             {renderFilling}
           </ul>
         ) : (<p className={`text text_type_main-default ${`${styles.addIngredientMassage} ${styles.addIngredientMassage_secondMassage}`}`}>Выберите НАЧИНКУ</p>)}
 
-        { selectedBun && (
+        {selectedBun && (
           <div className={`${styles.burgerConstructor__bunItem} ml-8`}>
             <ConstructorElement
               type="bottom"

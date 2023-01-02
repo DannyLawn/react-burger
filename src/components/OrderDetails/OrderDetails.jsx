@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import doneImage from "../../images/done.png";
 import loadingGif from '../../images/loading.svg';
 import styles from "./OrderDetails.module.scss";

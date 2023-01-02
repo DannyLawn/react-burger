@@ -1,0 +1,42 @@
+.errorMessage {
+  position: absolute;
+  right: 100px;
+  background-color: rgba(196, 0, 245, 0.15);
+  padding: 20px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(60, 0, 128, 0.4);
+  box-shadow: 0 0 30px rgba(55, 16, 163, 0.6) ;
+  will-change: opacity;
+  animation: showErr .6s forwards ease-in-out, hideErr .6s forwards 3s ease-in-out;;
+
+  &__text {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2em;
+    text-align: center;
+  }
+}
+
+@keyframes showErr {
+  from {
+    top: 85px;
+    opacity: 0;
+  }
+  to {
+    top: 150px;
+    opacity: 1;
+  }
+}
+
+@keyframes hideErr {
+  from {
+    top: 150px;
+    opacity: 1;
+  }
+  to {
+    top: 85px;
+    opacity: 0;
+  }
+}

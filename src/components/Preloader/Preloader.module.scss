@@ -1,0 +1,12 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__loadingGif {
+    margin-top: 200px;
+    width: 140px;
+    height: 140px;
+    opacity: .7;
+  }
+}
