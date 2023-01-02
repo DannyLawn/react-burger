@@ -50,9 +50,10 @@ const infoErrorMessages = [
     serverMessage: "Reset email sent",
     message: "Код восстановления отправлен на почту"
   },
-  {serverMessage: "unauthorized order",
-  message: "Заказ доступен авторизованным пользователям"
-}
+  {
+    serverMessage: "unauthorized order",
+    message: "Заказ доступен авторизованным пользователям"
+  }
 ];
 
 const defaultInfoErrorMessage = "Что-то пошло не так... Попробуйте повторить позже";

@@ -148,8 +148,8 @@ export const userReducer = (state = initialState, action) => {
       };
     case FORGOT_PASSWORD_REQUEST:
       return {
-      ...state,
-      forgotPassRequest: true
+        ...state,
+        forgotPassRequest: true
       };
     case FORGOT_PASSWORD_SUCCESS:
       return {
@@ -159,7 +159,7 @@ export const userReducer = (state = initialState, action) => {
         forgotPassFailed: false,
         errorMessage: action.payload.message
       };
-    case FORGOT_PASSWORD_FAILED: 
+    case FORGOT_PASSWORD_FAILED:
       return {
         ...state,
         errorMessage: action.payload,
@@ -167,7 +167,7 @@ export const userReducer = (state = initialState, action) => {
         forgotPassRequest: false,
         forgotPassSuccess: false
       };
-    case RESET_PASSWORD_REQUEST: 
+    case RESET_PASSWORD_REQUEST:
       return {
         ...state,
         resetPassRequest: true
@@ -189,7 +189,7 @@ export const userReducer = (state = initialState, action) => {
         resetPassRequest: false,
         resetPassSuccess: false
       }
-    
+
     case CHECK_AUTH:
       return {
         ...state,

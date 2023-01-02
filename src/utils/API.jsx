@@ -54,7 +54,7 @@ class Api {
     return this._request(`${this.url}/auth/logout`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json" 
+        "Content-type": "application/json"
       },
       body: JSON.stringify({ token })
     })
@@ -80,7 +80,7 @@ class Api {
     })
   }
 
-  upgradeUserData( token, email, password, name) {
+  upgradeUserData(token, email, password, name) {
     return this._request(`${this.url}/auth/user`, {
       method: "PATCH",
       headers: {
@@ -88,16 +88,16 @@ class Api {
         Authorization: token
       },
       body: JSON.stringify({ email, password, name })
-    }) 
+    })
   }
-  
+
   forgotPasswordReset(email) {
     return this._request(`${this.url}/password-reset`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify( email )
+      body: JSON.stringify(email)
     })
   }
 

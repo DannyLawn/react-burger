@@ -28,7 +28,9 @@ const AppHeader = () => {
             </NavLink>
           </li>
         </ul>
-        <Logo />
+        <NavLink to="/">
+          <Logo />
+        </NavLink>
         <NavLink to="/profile" className={styles.header__link} activeClassName={styles.header__link_active}>
           <ProfileIcon type={pathname.startsWith('/profile') ? 'primary' : 'secondary'} />
           <p className="text text_type_main-default ml-2">Личный кабинет</p>
