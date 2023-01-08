@@ -27,7 +27,7 @@ const ErrorMessage = ({ errorMessage }) => {
 
   return ReactDOM.createPortal(errorMessage && (
     <div className={styles.errorMessage}>
-      <p className={styles.errorMessage__text}>{`${textMessage}!`}</p>
+      <p className={`text text_type_main-small ${styles.errorMessage__text}`}>{`${textMessage}!`}</p>
     </div>),
     errMessageContainer
   )

@@ -70,7 +70,7 @@ const BurgerIngredients = () => {
 
   return (
     <section>
-      <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
+      <h1 className={`${styles.burgerIngredients__title} text text_type_main-large mt-10 mb-5`}>Соберите бургер</h1>
       <div className={styles.burgerIngredients__menu}>
         <Tab value="bun" active={current === bun} onClick={scrollToBun}>
           Булки

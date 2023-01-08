@@ -5,7 +5,6 @@ import { getUserData } from '../../services/actions/user';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import Main from '../../pages/Main/Main';
-import inDevelopmentImg from '../../images/pageInDevelopment.png';
 import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
@@ -16,6 +15,7 @@ import Modal from '../Modal/Modal';
 import ErrorMessage from '../ErrorMassage/ErrorMessage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import Feed from '../../pages/Feed/Feed';
 import styles from './App.module.scss';
 
 const App = () => {
@@ -46,9 +46,8 @@ const App = () => {
         <Route path="/" exact>
           <Main />
         </Route>
-        <Route path='/feed'>
-          <img className={styles.profile__inDevelopmentImg} src={inDevelopmentImg}
-            alt="Робот собирающий себя, с подписью 'страница в разработке'." />
+        <Route path='/feed' exact>
+           <Feed />
         </Route>
         <ProtectedRoute path="/register" forAuthUsers={false}>
           <Register />
@@ -84,6 +83,14 @@ const App = () => {
             </Modal>
           )}
         </Route>)}
+
+      {/* {background && (
+        <Route path="/feed/:number">
+          <Modal closePopup={closePopup}>
+            
+          </Modal>
+        </Route>
+      )} */}
 
       {errorMessage &&
         <ErrorMessage errorMessage={errorMessage} />

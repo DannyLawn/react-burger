@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 
 const URL = 'https://norma.nomoreparties.space/api';
 
+const ORDERS_WS_URL = "wss://norma.nomoreparties.space/orders";
+
 const ingredientTypes = {
   main: 'main',
   bun: 'bun',
@@ -56,6 +58,12 @@ const infoErrorMessages = [
   }
 ];
 
+const orderStatus = {
+  created: "Создан",
+  pending: "Готовится",
+  done: "Выполнен"
+}
+
 const defaultInfoErrorMessage = "Что-то пошло не так... Попробуйте повторить позже";
 
-export { URL, ingredientTypes, ingredientsPropType, defaultInfoErrorMessage, infoErrorMessages };
+export { URL, ORDERS_WS_URL, ingredientTypes, ingredientsPropType, defaultInfoErrorMessage, infoErrorMessages, orderStatus };

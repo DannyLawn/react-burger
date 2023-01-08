@@ -1,7 +1,7 @@
 .errorMessage {
   position: absolute;
   right: 100px;
-  background-color: rgba(196, 0, 245, 0.15);
+  background-color: rgba(114, 0, 245, 0.129);
   padding: 20px 20px;
   border-radius: 25px;
   border: 1px solid rgba(60, 0, 128, 0.4);
@@ -12,9 +12,6 @@
   &__text {
     margin: 0;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 1.2em;
     text-align: center;
   }
 }
