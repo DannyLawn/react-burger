@@ -71,8 +71,7 @@ const Order = ({ order, forUser }) => {
         <h3 className="text text_type_main-medium mt-6">{name}</h3>
         {forUser && (
           <span
-            className={`text text_type_main-small mt-2 ${status === "done" ? styles.order__doneStatus : null
-              }`}
+            className={`text text_type_main-small mt-2 ${status === "done" ? styles.order__doneStatus : null}`}
           >
             {orderStatus[status]}
           </span>
@@ -84,7 +83,7 @@ const Order = ({ order, forUser }) => {
                 return (
                   <li
                     className={styles.order__imageContainer}
-                    key={ingredient._id}
+                    key={index}
                     style={{ zIndex: 6 - index }}
                   >
                     <img
@@ -124,7 +123,7 @@ const Order = ({ order, forUser }) => {
 
 Order.propTypes = {
   order: PropTypes.object.isRequired,
-  forUser: PropTypes.bool.isRequired
+  forUser: PropTypes.bool
 }
 
 

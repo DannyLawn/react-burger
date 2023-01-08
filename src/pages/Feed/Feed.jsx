@@ -15,9 +15,10 @@ const Feed = () => {
 
   useEffect(() => {
     dispatch(startPublicWsConnection());
+
     return () => dispatch(closePublicWsConnection());
   }, [dispatch]);
-
+ 
   const renderContent = () => {
     if (publicOrders) {
       return (

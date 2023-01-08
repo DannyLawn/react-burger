@@ -84,13 +84,13 @@ const App = () => {
           )}
         </Route>)}
 
-      {/* {background && (
+      {background && (
         <Route path="/feed/:number">
           <Modal closePopup={closePopup}>
             
           </Modal>
         </Route>
-      )} */}
+      )}
 
       {errorMessage &&
         <ErrorMessage errorMessage={errorMessage} />

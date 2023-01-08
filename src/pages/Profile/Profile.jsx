@@ -2,7 +2,7 @@ import { Switch } from "react-router-dom";
 import { NavLink, useLocation } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileData from "../../components/ProfileData/ProfileData";
-import inDevelopmentImg from '../../images/pageInDevelopment.png';
+import ProfileOrders from "../../components/ProfileOrders/ProfileOrders";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../services/actions/user";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
@@ -74,7 +74,7 @@ const Profile = () => {
           <ProfileData />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders" forAuthUsers exact>
-          <img className={styles.profile__inDevelopmentImg} src={inDevelopmentImg} alt="Робот разобравший себя, с надписью 'страница в разработке'." />
+          <ProfileOrders />
         </ProtectedRoute>
       </Switch>
     </main>
