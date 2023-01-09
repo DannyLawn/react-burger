@@ -5,7 +5,7 @@ import { addIngredient, deleteIngredient, resetConstructor } from '../../service
 import { postOrder, closeOrder } from '../../services/actions/order';
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
+import OrderReceipt from '../OrderReceipt/OrderReceipt';
 import styles from "./BurgerConstructor.module.scss";
 import Filling from '../Filling/Filling';
 import { useHistory } from 'react-router-dom';
@@ -14,7 +14,7 @@ import { showError } from '../../services/actions/user';
 const BurgerConstructor = () => {
 
   const { selectedFilling, selectedBun } = useSelector(store => store.burgerConstructor);
-  const { isOrderDetailsOpened } = useSelector(store => store.order);
+  const { isOrderReceiptOpened } = useSelector(store => store.order);
   const dispatch = useDispatch();
   const { userData } = useSelector((store) => store.user);
   const history = useHistory();
@@ -127,9 +127,9 @@ const BurgerConstructor = () => {
         </Button>
       </div>
 
-      {isOrderDetailsOpened && (
+      {isOrderReceiptOpened && (
         <Modal closePopup={closeOrderDetails} onEscKeydown={handleEscKeydown}>
-          <OrderDetails />
+          <OrderReceipt />
         </Modal>
       )}
     </section>

@@ -29,7 +29,8 @@ const Feed = () => {
             </h1>
             <OrdersList orders={ordersData} />
           </section>
-          {/* <OrdersSummary orders={publicOrders} /> */}
+
+
         </main>
       );
     } else if (publicConnectionError) {
@@ -40,9 +41,7 @@ const Feed = () => {
       );
     } else {
       return (
-        <div className={styles.feed__preloaderContainer}>
-          <Preloader />
-        </div>
+          <Preloader fullPage />
       );
     }
   }

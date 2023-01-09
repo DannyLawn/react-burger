@@ -12,10 +12,12 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import NotFound from '../../pages/NotFound/NotFound';
 import Modal from '../Modal/Modal';
+import ProfileOrders from '../ProfileOrders/ProfileOrders';
 import ErrorMessage from '../ErrorMassage/ErrorMessage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Feed from '../../pages/Feed/Feed';
+import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from './App.module.scss';
 
 const App = () => {
@@ -47,7 +49,7 @@ const App = () => {
           <Main />
         </Route>
         <Route path='/feed' exact>
-           <Feed />
+          <Feed />
         </Route>
         <ProtectedRoute path="/register" forAuthUsers={false}>
           <Register />
@@ -61,13 +63,22 @@ const App = () => {
         <ProtectedRoute path="/reset-password" forAuthUsers={false}>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile" forAuthUsers>
+        <ProtectedRoute path="/profile" forAuthUsers exact>
           <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" forAuthUsers exact>
+          <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders/:number" forAuthUsers exact>
+          <OrderDetails />
         </ProtectedRoute>
         <Route path="/ingredients/:id" exact>
           {ingredients.length && (
             <IngredientDetails ingredients={ingredients} />
           )}
+        </Route>
+        <Route path="/feed/:number">
+          <OrderDetails />
         </Route>
         <Route path="*">
           <NotFound />
@@ -87,7 +98,15 @@ const App = () => {
       {background && (
         <Route path="/feed/:number">
           <Modal closePopup={closePopup}>
-            
+            <OrderDetails />
+          </Modal>
+        </Route>
+      )}
+
+      {background && (
+        <Route path="/profile/orders/:number">
+          <Modal closePopup={closePopup}>
+            <OrderDetails />
           </Modal>
         </Route>
       )}

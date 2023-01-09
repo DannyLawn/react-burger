@@ -1,4 +1,4 @@
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { NavLink, useLocation } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileData from "../../components/ProfileData/ProfileData";
@@ -70,15 +70,15 @@ const Profile = () => {
         {profileCaption()}
       </p>
       <Switch>
-        <ProtectedRoute path="/profile" forAuthUsers exact>
+        <Route path="/profile" exact>
           <ProfileData />
-        </ProtectedRoute>
-        <ProtectedRoute path="/profile/orders" forAuthUsers exact>
+        </Route>
+        <Route path="/profile/orders" exact>
           <ProfileOrders />
-        </ProtectedRoute>
+        </Route>
       </Switch>
     </main>
-  ) : (<Preloader />)
+  ) : (<Preloader fullPage />)
 };
 
 export default Profile;

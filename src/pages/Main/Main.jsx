@@ -26,7 +26,7 @@ const Main = () => {
           </DndProvider>
         </main>
       ) : (
-        <Preloader />
+        <Preloader fullPage />
       )}
     </>
   )
