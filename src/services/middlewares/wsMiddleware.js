@@ -1,6 +1,12 @@
+import { startPublicWsConnection, startUserWsConnection } from "../actions/wsOrders";
+import { getCookie } from "../../utils/cookie";
+
 export const wsMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;
+    let isConnected = false;
+    const token = getCookie('accessToken')?.replace('Bearer ', '');
+    
     return (next) => (action) => {
 
       const { type } = action;
@@ -9,6 +15,10 @@ export const wsMiddleware = (wsUrl, wsActions) => {
       if (type === wsStart) {
         socket = action.payload ? new WebSocket(`${wsUrl}${action.payload}`)
           : new WebSocket(wsUrl);
+        isConnected = true;
+      }
+      if (type === onClose) {
+        socket.close(1000, 'reason')
       }
       if (socket) {
         socket.onopen = (evt) => {
@@ -25,6 +35,12 @@ export const wsMiddleware = (wsUrl, wsActions) => {
           dispatch({ type: onMessage, payload: orders });
         }
         socket.onclose = (evt) => {
+          if(evt.code !== 1000) {
+            dispatch({ type: onError, payload: evt });
+            if(isConnected) {
+              action.payload ? dispatch(startUserWsConnection(token)) : dispatch(startPublicWsConnection());
+            }
+          }
           dispatch({ type: onClose });
         }
       }
