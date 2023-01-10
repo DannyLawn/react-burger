@@ -12,7 +12,6 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import NotFound from '../../pages/NotFound/NotFound';
 import Modal from '../Modal/Modal';
-import ProfileOrders from '../ProfileOrders/ProfileOrders';
 import ErrorMessage from '../ErrorMassage/ErrorMessage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';

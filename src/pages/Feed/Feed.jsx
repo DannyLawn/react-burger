@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useMemo, useEffect } from 'react';
 import OrdersList from '../../components/OrdersList/OrdersList';
+import OrderStatistics from '../../components/OrderStatistics/OrderStatistics';
 import Preloader from '../../components/Preloader/Preloader';
 import { startPublicWsConnection, closePublicWsConnection } from '../../services/actions/wsOrders';
 import styles from './Feed.module.scss';
@@ -8,7 +9,7 @@ import styles from './Feed.module.scss';
 const Feed = () => {
   const dispatch = useDispatch();
   const { publicOrders, publicConnectionError } = useSelector(store => store.wsOrders);
-
+ 
   const ordersData = useMemo(() => {
     return publicOrders?.orders
   }, [publicOrders]);
@@ -29,7 +30,7 @@ const Feed = () => {
             </h1>
             <OrdersList orders={ordersData} />
           </section>
-
+        <OrderStatistics allOrderData={publicOrders}/>
 
         </main>
       );

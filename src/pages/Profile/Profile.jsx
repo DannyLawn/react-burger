@@ -5,7 +5,6 @@ import ProfileData from "../../components/ProfileData/ProfileData";
 import ProfileOrders from "../../components/ProfileOrders/ProfileOrders";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../services/actions/user";
-import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
 import Preloader from "../../components/Preloader/Preloader";
 import styles from "./Profile.module.scss";
 
