@@ -1,0 +1,9 @@
+.feed {
+  display: grid;
+  grid-template-columns: 592px 580px;
+  column-gap: 56px;
+
+  &__title {
+    cursor: default;
+  }
+}

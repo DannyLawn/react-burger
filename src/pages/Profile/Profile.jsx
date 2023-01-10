@@ -1,11 +1,10 @@
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { NavLink, useLocation } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileData from "../../components/ProfileData/ProfileData";
-import inDevelopmentImg from '../../images/pageInDevelopment.png';
+import ProfileOrders from "../../components/ProfileOrders/ProfileOrders";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../services/actions/user";
-import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
 import Preloader from "../../components/Preloader/Preloader";
 import styles from "./Profile.module.scss";
 
@@ -70,15 +69,15 @@ const Profile = () => {
         {profileCaption()}
       </p>
       <Switch>
-        <ProtectedRoute path="/profile" forAuthUsers exact>
+        <Route path="/profile" exact>
           <ProfileData />
-        </ProtectedRoute>
-        <ProtectedRoute path="/profile/orders" forAuthUsers exact>
-          <img className={styles.profile__inDevelopmentImg} src={inDevelopmentImg} alt="Робот разобравший себя, с надписью 'страница в разработке'." />
-        </ProtectedRoute>
+        </Route>
+        <Route path="/profile/orders" exact>
+          <ProfileOrders />
+        </Route>
       </Switch>
     </main>
-  ) : (<Preloader />)
+  ) : (<Preloader fullPage />)
 };
 
 export default Profile;

@@ -30,6 +30,15 @@ class Api {
     })
   }
 
+  getOrder(number) {
+    return this._request(`${this.url}/orders/${number}`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
   register(email, password, name) {
     return this._request(`${this.url}/auth/register`, {
       method: "POST",

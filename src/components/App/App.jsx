@@ -5,7 +5,6 @@ import { getUserData } from '../../services/actions/user';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import Main from '../../pages/Main/Main';
-import inDevelopmentImg from '../../images/pageInDevelopment.png';
 import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
@@ -16,6 +15,8 @@ import Modal from '../Modal/Modal';
 import ErrorMessage from '../ErrorMassage/ErrorMessage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import Feed from '../../pages/Feed/Feed';
+import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from './App.module.scss';
 
 const App = () => {
@@ -46,9 +47,8 @@ const App = () => {
         <Route path="/" exact>
           <Main />
         </Route>
-        <Route path='/feed'>
-          <img className={styles.profile__inDevelopmentImg} src={inDevelopmentImg}
-            alt="Робот собирающий себя, с подписью 'страница в разработке'." />
+        <Route path='/feed' exact>
+          <Feed />
         </Route>
         <ProtectedRoute path="/register" forAuthUsers={false}>
           <Register />
@@ -62,13 +62,22 @@ const App = () => {
         <ProtectedRoute path="/reset-password" forAuthUsers={false}>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile" forAuthUsers>
+        <ProtectedRoute path="/profile" forAuthUsers exact>
           <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" forAuthUsers exact>
+          <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders/:number" forAuthUsers exact>
+          <OrderDetails />
         </ProtectedRoute>
         <Route path="/ingredients/:id" exact>
           {ingredients.length && (
             <IngredientDetails ingredients={ingredients} />
           )}
+        </Route>
+        <Route path="/feed/:number">
+          <OrderDetails />
         </Route>
         <Route path="*">
           <NotFound />
@@ -84,6 +93,22 @@ const App = () => {
             </Modal>
           )}
         </Route>)}
+
+      {background && (
+        <Route path="/feed/:number">
+          <Modal closePopup={closePopup}>
+            <OrderDetails />
+          </Modal>
+        </Route>
+      )}
+
+      {background && (
+        <Route path="/profile/orders/:number">
+          <Modal closePopup={closePopup}>
+            <OrderDetails />
+          </Modal>
+        </Route>
+      )}
 
       {errorMessage &&
         <ErrorMessage errorMessage={errorMessage} />

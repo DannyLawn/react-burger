@@ -2,14 +2,20 @@ import {
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
-  CLEAR_ORDER_DETAILS
+  CLEAR_ORDER_DETAILS,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED
 } from '../actions/order';
 
 const initialState = {
   orderRequest: false,
   orderFailed: false,
+  getOrderRequest: false,
+  getOrderFailed: false,
+  orderData: null,
   orderNumber: null,
-  isOrderDetailsOpened: false
+  isOrderReceiptOpened: false
 }
 
 export const orderReducer = (state = initialState, action) => {
@@ -18,7 +24,7 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         orderRequest: true,
-        isOrderDetailsOpened: true
+        isOrderReceiptOpened: true
       };
 
     case POST_ORDER_SUCCESS:
@@ -34,7 +40,29 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderFailed: true,
         orderRequest: false,
-        isOrderDetailsOpened: true
+        isOrderReceiptOpened: true
+      };
+
+    case GET_ORDER_REQUEST:
+      return {
+        ...state,
+        getOrderRequest: true
+      };
+
+    case GET_ORDER_SUCCESS:
+      return {
+        ...state,
+        getOrderRequest: false,
+        getOrderFailed: false,
+        orderData: action.payload || 'orderNotFound'
+      };
+
+    case GET_ORDER_FAILED:
+      return {
+        ...state,
+        getOrderFailed: true,
+        getOrderRequest: false,
+        orderData: null
       };
 
     case CLEAR_ORDER_DETAILS:

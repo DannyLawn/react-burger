@@ -1,7 +1,11 @@
 .burgerIngredients {
   box-sizing: border-box;
-  max-height: 756px;
+  max-height: calc(100vh - 290px);
   overflow-y: auto;
+
+  &__title {
+    cursor: default;
+  }
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -9,13 +13,13 @@
 
   &::-webkit-scrollbar-track {
     background: #131316;
-    height: 664px;
+    height: calc(100vh - 590px);
     border-radius: 0px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #8585AD;
-    height: 492px;
+    height: calc(100vh - 520px);
     border-radius: 0px;
   }
 
